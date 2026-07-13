@@ -28,8 +28,8 @@
 
             <div class="text-center">
 
-                <div class="logo-circle mb-3">
-                    <i class="bi bi-person"></i>
+                <div class="logo-circle">
+                    <img src="Imagens/LogoPets.png" alt="Logo Sistema de Pets" class="logo-icon">
                 </div>
 
                 <h2 class="fw-bold">Sistema de Pets</h2>
@@ -89,14 +89,6 @@
                         </button>
 
                     </div>
-
-                </div>
-
-                <div class="text-end mb-4">
-
-                    <a href="recuperaSenha.php" class="esqueceu">
-                        Esqueceu a senha?
-                    </a>
 
                 </div>
 

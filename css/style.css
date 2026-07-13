@@ -17,25 +17,10 @@ body{
 
 }
 
-.logo-circle{
-
-    width:90px;
-    height:90px;
-
-    margin:auto;
-
-    border-radius:50%;
-
-    background:#8B5736;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    color:white;
-
-    font-size:35px;
-
+.logo-icon{
+    width:150px;
+    height:150px;
+    object-fit:contain;
 }
 
 .form-control{
@@ -58,6 +43,8 @@ body{
     height:60px;
 
     border-radius:15px;
+
+    margin-top: 10px;
 
     font-size:24px;
     font-weight:bold;
