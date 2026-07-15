@@ -29,7 +29,7 @@
             <div class="text-center">
 
                 <div class="logo-circle">
-                    <img src="Imagens/LogoPets.png" alt="Logo Sistema de Pets" class="logo-icon">
+                    <img src="Imagens/Logo.png" alt="Logo Sistema de Pets" class="logo-icon">
                 </div>
 
                 <h2 class="fw-bold">Sistema de Pets</h2>
