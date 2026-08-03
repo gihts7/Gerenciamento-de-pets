@@ -17,10 +17,27 @@ body{
 
 }
 
+.logo-circle{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin:0 auto 5px auto;
+
+}
+
 .logo-icon{
+
     width:150px;
     height:150px;
+
     object-fit:contain;
+
+    display:block;
+
 }
 
 .form-control{
@@ -80,4 +97,169 @@ body{
 
 .cadastro-link:hover{
     text-decoration:underline;
+}
+
+/* ==========================
+   CADASTRO DE PETS
+========================== */
+
+.pet-card{
+
+    width:100%;
+    max-width:950px;
+
+    margin:40px auto;
+
+    background:white;
+
+    border:1px solid #d7c0a4;
+
+    border-radius:25px;
+
+    padding:40px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.titulo-pagina{
+
+    text-align:center;
+
+    color:#8B5736;
+
+    font-size:36px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
+}
+
+.subtitulo{
+
+    text-align:center;
+
+    color:#7b6a58;
+
+    margin-bottom:35px;
+
+}
+
+.form-label{
+
+    font-weight:600;
+
+    color:#5a4634;
+
+}
+
+.form-control,
+.form-select{
+
+    height:55px;
+
+    border-radius:12px;
+
+    border:1px solid #d7c0a4;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    border-color:#8B5736;
+
+    box-shadow:0 0 0 .2rem rgba(139,87,54,.15);
+
+}
+
+textarea.form-control{
+
+    min-height:160px;
+
+    resize:none;
+
+}
+
+.radio-group{
+
+    display:flex;
+
+    gap:30px;
+
+    margin-top:10px;
+
+}
+
+.form-check-input:checked{
+
+    background:#8B5736;
+
+    border-color:#8B5736;
+
+}
+
+.botoes{
+
+    margin-top:35px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+}
+
+.btn-salvar{
+
+    background:#8B5736;
+
+    color:white;
+
+    width:180px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+.btn-salvar:hover{
+
+    background:#74462b;
+
+}
+
+.btn-limpar{
+
+    background:#e7ddd0;
+
+    color:#5a4634;
+
+    width:180px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+.btn-limpar:hover{
+
+    background:#d9cab8;
+
 }

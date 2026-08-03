@@ -5,18 +5,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pets cadastrados</title>
+    <title>Gerenciamento de pets</title>
 </head>
 
 <body>
-
-
-    <?php
+<?php
 
 	if (!isset($_POST["enviar"]))
 		header("location: Login.php");
 
 ?>
+
+<h3>Cadastrar novo pet</h3>
+
+<h3>Pets cadastrados</h3>
 
 </body>
 
