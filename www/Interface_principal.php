@@ -11,6 +11,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
     <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -27,10 +29,15 @@
 
     <div class="pet-card">
 
+        <a href="minhaConta.php" class="minha-conta" title="Minha conta">
+            <i class="bi bi-person-circle"></i>
+            <span>Minha Conta</span>
+        </a>
+
         <div class="text-center">
 
             <div class="logo-circle">
-                <img src="Imagens/Logo.png" alt="Logo Sistema de Pets" class="logo-icon">
+                <img src="imagens/logo.png" alt="Logo Sistema de Pets" class="logo-icon">
             </div>
 
             <h1 class="titulo-pagina">
@@ -45,7 +52,7 @@
 
         <div class="text-center mb-5">
 
-            <a href="Formulário_pets.php" class="btn btn-loginCadastro">
+            <a href="formulário_pets.php" class="btn btn-loginCadastro">
 
                 + Cadastrar Novo Pet
 
@@ -84,7 +91,7 @@
                     <td>
 
                         <button class="btn-editar">
-                            Editar
+                            <a href="formulário_pets.php" class="form-link">Editar</a>
                         </button>
 
                         <button class="btn-excluir">
@@ -104,7 +111,7 @@
                     <td>
 
                         <button class="btn-editar">
-                            Editar
+                            <a href="formulário_pets.php" class="form-link">Editar</a>
                         </button>
 
                         <button class="btn-excluir">

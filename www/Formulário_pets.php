@@ -17,7 +17,7 @@
     <div class="pet-card">
 
         <div class="logo-circle">
-            <img src="Imagens/Logo.png" alt="Logo Sistema de Pets" class="logo-icon">
+            <img src="imagens/logo.png" alt="Logo Sistema de Pets" class="logo-icon">
         </div>
 
         <h1 class="titulo-pagina">Cadastro de Pets</h1>
@@ -26,7 +26,7 @@
             Cadastre um novo pet no sistema
         </p>
 
-        <form method="post" action="Interface_principal.php">
+        <form method="post" action="interface_principal.php">
 
             <div class="row">
 

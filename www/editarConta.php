@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Login</title>
+    <title>Minha conta</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,18 +29,37 @@
             <div class="text-center">
 
                 <div class="logo-circle">
-                    <img src="Imagens/Logo.png" alt="Logo Sistema de Pets" class="logo-icon">
+                    <img src="imagens/logo.png" alt="Logo Sistema de Pets" class="logo-icon">
                 </div>
 
                 <h2 class="fw-bold">Sistema de Pets</h2>
 
                 <p class="text-muted mb-4">
-                    Entre com sua conta para continuar
+                    Vizualize e edite seus dados cadastrais
                 </p>
 
             </div>
 
-            <form method="post" action="Interface_principal.php">
+            <form method="post" action="interface_principal.php">
+
+                <div class="mb-3">
+
+                    <label class="form-label">Nome</label>
+
+                    <div class="input-group">
+
+                    <span class="input-group-text">
+                        <i class="bi bi-person"></i>
+                    </span>
+
+                        <input
+                            type="text"
+                            name="nome"
+                            class="form-control">
+
+                    </div>
+
+                </div>
 
                 <div class="mb-3">
 
@@ -55,8 +74,7 @@
                         <input
                             type="email"
                             name="email"
-                            class="form-control"
-                            placeholder="nome@exemplo.com">
+                            class="form-control">
 
                     </div>
 
@@ -76,8 +94,7 @@
                             type="password"
                             name="senha"
                             id="senha"
-                            class="form-control"
-                            placeholder="********">
+                            class="form-control">
 
                         <button
                             class="btn btn-outline-secondary"
@@ -92,22 +109,15 @@
 
                 </div>
 
-                <input
-                    type="submit"
-                    name="enviar"
-                    value="Entrar"
-                    class="btn btn-loginCadastro w-100">
+                <a href="minhaConta.php" class="btn-editarCadastro">
+                    Salvar
+                </a>
 
                 <div class="text-center mt-3">
-                    <span class="text-muted">Não possui uma conta?</span>
-                    <a href="cadastro.php" class="cadastro-link">Cadastre-se</a>
+                    <a href="minhaConta.php" class="cadastro-link">Cancelar edição</a>
                 </div>
 
             </form>
-
-            <p class="text-center text-muted mt-4 mb-0">
-                Acesso restrito a usuários cadastrados
-            </p>
 
         </div>
 

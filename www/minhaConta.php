@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Cadastro de usuário</title>
+    <title>Minha conta</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -35,7 +35,7 @@
                 <h2 class="fw-bold">Sistema de Pets</h2>
 
                 <p class="text-muted mb-4">
-                    Crie sua conta para continuar o login
+                    Vizualize e edite seus dados cadastrais
                 </p>
 
             </div>
@@ -55,8 +55,7 @@
                         <input
                             type="text"
                             name="nome"
-                            class="form-control"
-                            placeholder="Nome completo">
+                            class="form-control">
 
                     </div>
 
@@ -75,8 +74,7 @@
                         <input
                             type="email"
                             name="email"
-                            class="form-control"
-                            placeholder="nome@exemplo.com">
+                            class="form-control">
 
                     </div>
 
@@ -96,8 +94,7 @@
                             type="password"
                             name="senha"
                             id="senha"
-                            class="form-control"
-                            placeholder="********">
+                            class="form-control">
 
                         <button
                             class="btn btn-outline-secondary"
@@ -112,15 +109,16 @@
 
                 </div>
 
-                <input
-                    type="submit"
-                    name="enviar"
-                    value="Entrar"
-                    class="btn btn-loginCadastro w-100">
+                <a href="editarConta.php" class="btn-editarCadastro">
+                    Editar
+                </a>
+
+                <button class="btn-excluirCadastro">
+                    Excluir Conta
+                </button>
 
                 <div class="text-center mt-3">
-                    <span class="text-muted">Já possui uma conta?</span>
-                    <a href="index.php" class="cadastro-link">Entrar</a>
+                    <a href="interface_principal.php" class="cadastro-link">Voltar</a>
                 </div>
 
             </form>
