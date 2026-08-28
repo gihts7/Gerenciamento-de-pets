@@ -16,7 +16,7 @@
 		//
 		// A função retorna um objeto de conexão que será utilizado
 		// para executar consultas SQL.
-		$conn = mysqli_connect("mysql", "root", "1234", "prog_internet");
+		$conn = mysqli_connect("mysql", "root", "1234", "site_progWeb");
 
 	} catch (mysqli_sql_exception $e){
 
