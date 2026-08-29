@@ -1,6 +1,15 @@
 <?php
 
 require_once("includes/verificaLogin.php");
+require_once("includes/conecta.php");
+
+
+$sql = "SELECT pets.*, especies.especie
+        FROM pets
+        INNER JOIN especies
+        ON pets.id_especie = especies.id";
+
+$resultado = mysqli_query($conn, $sql);
 
 ?>
 
@@ -96,45 +105,100 @@ require_once("includes/verificaLogin.php");
 
             <tbody>
 
-                <tr>
+                <?php
 
-                    <td>Bob</td>
-                    <td>Cachorro</td>
-                    <td>10/02/2022</td>
-                    <td>Macho</td>
-                    <td>
+                while ($pet = mysqli_fetch_assoc($resultado)) {
 
-                        <button class="btn-editar">
-                            <a href="formulário_pets.php" class="form-link">Editar</a>
-                        </button>
+                ?>
 
-                        <button class="btn-excluir">
-                            Excluir
-                        </button>
+                    <tr>
 
-                    </td>
+                        <!-- NOME -->
 
-                </tr>
+                        <td>
 
-                <tr>
+                            <?php echo $pet["nome"]; ?>
 
-                    <td>Luna</td>
-                    <td>Gato</td>
-                    <td>15/07/2021</td>
-                    <td>Fêmea</td>
-                    <td>
+                        </td>
 
-                        <button class="btn-editar">
-                            <a href="formulário_pets.php" class="form-link">Editar</a>
-                        </button>
 
-                        <button class="btn-excluir">
-                            Excluir
-                        </button>
+                        <!-- ESPÉCIE -->
 
-                    </td>
+                        <td>
 
-                </tr>
+                            <?php echo $pet["especie"]; ?>
+
+                        </td>
+
+
+                        <!-- NASCIMENTO -->
+
+                        <td>
+
+                            <?php
+
+                            echo date(
+                                "d/m/Y",
+                                strtotime($pet["nascimento"])
+                            );
+
+                            ?>
+
+                        </td>
+
+
+                        <!-- GÊNERO -->
+
+                        <td>
+
+                            <?php
+
+                            if ($pet["genero"] == "M") {
+
+                                echo "Macho";
+
+                            } else {
+
+                                echo "Fêmea";
+
+                            }
+
+                            ?>
+
+                        </td>
+
+
+                        <!-- AÇÕES -->
+
+                        <td>
+
+                            <a
+                                href="editarPet.php?id=<?php echo $pet["id"]; ?>"
+                                class="btn-editar">
+
+                                Editar
+
+                            </a>
+
+
+                            <a
+                                href="excluirPet.php?id=<?php echo $pet["id"]; ?>"
+                                class="btn-excluir"
+                                onclick="return confirm('Tem certeza que deseja excluir este pet?')">
+
+                                Excluir
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                <?php
+
+                }
+
+                ?>
 
             </tbody>
 

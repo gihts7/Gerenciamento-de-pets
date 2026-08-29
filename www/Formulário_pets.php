@@ -1,6 +1,46 @@
 <?php
 
 require_once("includes/verificaLogin.php");
+require_once("includes/conecta.php");
+
+
+/* BUSCAR ESPÉCIES */
+
+$sql = "SELECT * FROM especies";
+
+$resultado = mysqli_query($conn, $sql);
+
+
+/* CADASTRAR PET */
+
+if (isset($_POST["enviar"])) {
+
+    $nome = $_POST["nome"];
+    $nascimento = $_POST["nascimento"];
+    $id_especie = $_POST["especie"];
+    $prontuario = $_POST["prontuario"];
+    $genero = $_POST["genero"];
+
+
+    $sql = "INSERT INTO pets 
+            (nome, nascimento, id_especie, prontuario, genero)
+
+            VALUES 
+            ('$nome', '$nascimento', '$id_especie', '$prontuario', '$genero')";
+
+
+    if (mysqli_query($conn, $sql)) {
+
+        header("Location: interface_principal.php");
+        exit;
+
+    } else {
+
+        $mensagem = "Erro ao cadastrar o pet.";
+
+    }
+
+}
 
 ?>
 
@@ -32,107 +72,190 @@ require_once("includes/verificaLogin.php");
             Cadastre um novo pet no sistema
         </p>
 
-        <form method="post" action="interface_principal.php">
+        <form method="post">
 
-            <div class="row">
+            <!-- NOME -->
 
-                <div class="col-md-6 mb-4">
+            <div class="mb-3">
 
-                    <label class="form-label">Nome do Pet</label>
+                <label class="form-label">
 
-                    <input type="text" name="nome" required class="form-control">
+                    Nome do Pet
 
-                </div>
+                </label>
 
-                <div class="col-md-6 mb-4">
-
-                    <label class="form-label">Nascimento</label>
-
-                    <input type="date" name="nascimento" required class="form-control">
-
-                </div>
+                <input
+                    type="text"
+                    name="nome"
+                    class="form-control"
+                    required>
 
             </div>
 
-            <div class="row">
 
-                <div class="col-md-6 mb-4">
+            <!-- NASCIMENTO -->
 
-                    <label class="form-label">Espécie</label>
+            <div class="mb-3">
 
-                    <select name="especie" required class="form-select">
+                <label class="form-label">
 
-                        <option value="" selected disabled hidden>
-                            Selecione a espécie
+                    Data de Nascimento
+
+                </label>
+
+                <input
+                    type="date"
+                    name="nascimento"
+                    class="form-control"
+                    required>
+
+            </div>
+
+
+            <!-- ESPÉCIE -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Espécie
+
+                </label>
+
+                <select
+                    name="especie"
+                    class="form-select"
+                    required>
+
+                    <option value="" selected disabled>
+
+                        Selecione a espécie
+
+                    </option>
+
+
+                    <?php
+
+                    while ($especie = mysqli_fetch_assoc($resultado)) {
+
+                    ?>
+
+                        <option value="<?php echo $especie["id"]; ?>">
+
+                            <?php echo $especie["especie"]; ?>
+
                         </option>
 
-                        <option value="1">Cachorro</option>
-                        <option value="2">Gato</option>
-                        <option value="3">Pássaro</option>
-                        <option value="4">Hamster</option>
-                        <option value="5">Coelho</option>
+                    <?php
 
-                    </select>
+                    }
 
-                </div>
+                    ?>
 
-                <div class="col-md-6">
-
-                    <label class="form-label">Gênero</label>
-
-                    <div class="radio-group">
-
-                        <div class="form-check">
-
-                            <input class="form-check-input"
-                                   type="radio"
-                                   name="genero"  required
-                                   value="F">
-
-                            <label class="form-check-label">
-                                Fêmea
-                            </label>
-
-                        </div>
-
-                        <div class="form-check">
-
-                            <input class="form-check-input"
-                                   type="radio"
-                                   name="genero" required
-                                   value="M">
-
-                            <label class="form-check-label">
-                                Macho
-                            </label>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                </select>
 
             </div>
 
-            <div class="mb-4">
 
-                <label class="form-label">Prontuário</label>
+            <!-- PRONTUÁRIO -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Prontuário
+
+                </label>
 
                 <textarea
                     name="prontuario"
-                    class="form-control"></textarea>
+                    class="form-control"
+                    rows="4"></textarea>
 
             </div>
 
-            <div class="botoes">
 
-                <button class="btn-salvar">
-                    Salvar
-                </button>
+            <!-- GÊNERO -->
 
-                <button type="reset" class="btn-limpar">
-                    Limpar
-                </button>
+            <div class="mb-4">
+
+                <label class="form-label d-block">
+
+                    Gênero
+
+                </label>
+
+
+                <div class="form-check form-check-inline">
+
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        name="genero"
+                        value="M"
+                        required>
+
+                    <label class="form-check-label">
+
+                        Macho
+
+                    </label>
+
+                </div>
+
+
+                <div class="form-check form-check-inline">
+
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        name="genero"
+                        value="F">
+
+                    <label class="form-check-label">
+
+                        Fêmea
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- MENSAGEM DE ERRO -->
+
+            <?php if (isset($mensagem)) { ?>
+
+                <div class="alert alert-danger">
+
+                    <?php echo $mensagem; ?>
+
+                </div>
+
+            <?php } ?>
+
+
+            <!-- BOTÃO SALVAR -->
+
+            <input
+                type="submit"
+                name="enviar"
+                value="Salvar"
+                class="btn btn-loginCadastro w-100">
+
+
+            <!-- VOLTAR -->
+
+            <div class="text-center mt-3">
+
+                <a
+                    href="interface_principal.php"
+                    class="cadastro-link">
+
+                    Cancelar
+
+                </a>
 
             </div>
 
