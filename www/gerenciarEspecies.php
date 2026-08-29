@@ -35,7 +35,6 @@ $resultado = mysqli_query($conn, $sql);
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-
     <!-- CSS -->
 
     <link rel="stylesheet" href="css/style.css">
@@ -97,7 +96,7 @@ $resultado = mysqli_query($conn, $sql);
         <div class="text-center mb-5">
 
             <a 
-                href="cadastrarEspecie.php"
+                href="cadastrarEspecies.php"
                 class="btn btn-loginCadastro">
 
                 + Cadastrar Nova Espécie
@@ -166,7 +165,7 @@ $resultado = mysqli_query($conn, $sql);
                         <!-- EDITAR -->
 
                         <a 
-                            href="editarEspecie.php?id=<?php echo $especie["id"]; ?>"
+                            href="editarEspecies.php?id=<?php echo $especie["id"]; ?>"
                             class="btn-editar">
 
                             Editar
@@ -177,8 +176,9 @@ $resultado = mysqli_query($conn, $sql);
                         <!-- EXCLUIR -->
 
                         <a 
-                            href="excluirEspecie.php?id=<?php echo $especie["id"]; ?>"
-                            class="btn-excluir">
+                            href="excluirEspecies.php?id=<?php echo $especie["id"]; ?>"
+                            class="btn-excluir"
+                            onclick="return confirm('Tem certeza que deseja excluir esta espécie?')">
 
                             Excluir
 
