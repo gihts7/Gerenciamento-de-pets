@@ -1,6 +1,15 @@
 <?php
 
 require_once("includes/verificaLogin.php");
+require_once("includes/conecta.php");
+
+$id_usuario = $_SESSION["id_usuario"];
+
+$sql = "SELECT * FROM usuarios WHERE id = '$id_usuario'";
+
+$resultado = mysqli_query($conn, $sql);
+
+$usuario = mysqli_fetch_assoc($resultado);
 
 ?>
 
@@ -46,8 +55,6 @@ require_once("includes/verificaLogin.php");
 
             </div>
 
-            <form method="post" action="interface_principal.php">
-
                 <div class="mb-3">
 
                     <label class="form-label">Nome</label>
@@ -61,7 +68,9 @@ require_once("includes/verificaLogin.php");
                         <input
                             type="text"
                             name="nome"
-                            class="form-control">
+                            class="form-control"
+                            value="<?php echo $usuario["nome"]; ?>"
+                            readonly>
 
                     </div>
 
@@ -80,36 +89,9 @@ require_once("includes/verificaLogin.php");
                         <input
                             type="email"
                             name="email"
-                            class="form-control">
-
-                    </div>
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">Senha</label>
-
-                    <div class="input-group">
-
-                        <span class="input-group-text">
-                            <i class="bi bi-lock"></i>
-                        </span>
-
-                        <input
-                            type="password"
-                            name="senha"
-                            id="senha"
-                            class="form-control">
-
-                        <button
-                            class="btn btn-outline-secondary"
-                            type="button"
-                            id="mostrarSenha">
-
-                            <i class="bi bi-eye"></i>
-
-                        </button>
+                            class="form-control"
+                            value="<?php echo $usuario["email"]; ?>"
+                            readonly>
 
                     </div>
 
@@ -119,15 +101,30 @@ require_once("includes/verificaLogin.php");
                     Editar
                 </a>
 
-                <button class="btn-excluirCadastro">
-                    Excluir Conta
-                </button>
+                <a href="logout.php" class="btn-excluirCadastro">
+                    <i class="bi bi-box-arrow-right"></i>
+                    Sair
+                </a>
+
+                <form 
+                    method="post" 
+                    action="excluirConta.php"
+                    onsubmit="return confirm('Tem certeza que deseja excluir sua conta? Esta ação não poderá ser desfeita.')">
+
+                    <button 
+                        type="submit"
+                        class="btn-excluirCadastro">
+
+                        <i class="bi bi-trash"></i>
+                        Excluir Conta
+
+                    </button>
+
+                </form>
 
                 <div class="text-center mt-3">
                     <a href="interface_principal.php" class="cadastro-link">Voltar</a>
                 </div>
-
-            </form>
 
         </div>
 
