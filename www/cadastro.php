@@ -1,3 +1,31 @@
+<?php
+
+require_once("includes/conecta.php");
+
+if (isset($_POST["enviar"])) {
+
+    $nome = $_POST["nome"];
+    $email = $_POST["email"];
+    $senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
+
+    $sql = "INSERT INTO usuarios (nome, email, senha)
+            VALUES ('$nome', '$email', '$senha')";
+
+    if (mysqli_query($conn, $sql)) {
+
+        header("Location: index.php");
+        exit;
+
+    } else {
+
+        echo "Erro ao cadastrar usuário.";
+
+    }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -40,7 +68,7 @@
 
             </div>
 
-            <form method="post" action="interface_principal.php">
+            <form method="post" action="">
 
                 <div class="mb-3">
 
@@ -56,7 +84,7 @@
                             type="text"
                             name="nome"
                             class="form-control"
-                            placeholder="Nome completo">
+                            placeholder="Nome completo" required>
 
                     </div>
 
@@ -76,7 +104,7 @@
                             type="email"
                             name="email"
                             class="form-control"
-                            placeholder="nome@exemplo.com">
+                            placeholder="nome@exemplo.com" required>
 
                     </div>
 
@@ -97,7 +125,7 @@
                             name="senha"
                             id="senha"
                             class="form-control"
-                            placeholder="********">
+                            placeholder="********" required>
 
                         <button
                             class="btn btn-outline-secondary"
@@ -113,10 +141,10 @@
                 </div>
 
                 <input
-                    type="submit"
-                    name="enviar"
-                    value="Entrar"
-                    class="btn btn-loginCadastro w-100">
+                type="submit"
+                name="enviar"
+                value="Cadastrar"
+                class="btn btn-loginCadastro w-100">
 
                 <div class="text-center mt-3">
                     <span class="text-muted">Já possui uma conta?</span>

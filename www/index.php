@@ -1,3 +1,46 @@
+<?php
+
+session_start();
+
+require_once("includes/conecta.php");
+
+if (isset($_POST["enviar"])) {
+
+    $email = $_POST["email"];
+    $senha = $_POST["senha"];
+
+    $sql = "SELECT * FROM usuarios WHERE email = '$email'";
+
+    $resultado = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($resultado) == 1) {
+
+        $usuario = mysqli_fetch_assoc($resultado);
+
+        if (password_verify($senha, $usuario["senha"])) {
+
+            $_SESSION["id_usuario"] = $usuario["id"];
+            $_SESSION["nome_usuario"] = $usuario["nome"];
+
+            header("Location: interface_principal.php");
+            exit;
+
+        } else {
+
+            $mensagem = "Senha incorreta.";
+
+        }
+
+    } else {
+
+        $mensagem = "E-mail não encontrado.";
+
+    }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -40,7 +83,23 @@
 
             </div>
 
-            <form method="post" action="interface_principal.php">
+            <?php
+
+                if (isset($mensagem)) {
+
+                ?>
+
+                    <div class="alert alert-danger">
+                        <?php echo $mensagem; ?>
+                    </div>
+
+                <?php
+
+                }
+
+                ?>
+
+            <form method="post" action="">
 
                 <div class="mb-3">
 
@@ -56,7 +115,7 @@
                             type="email"
                             name="email"
                             class="form-control"
-                            placeholder="nome@exemplo.com">
+                            placeholder="nome@exemplo.com" required>
 
                     </div>
 
@@ -77,7 +136,7 @@
                             name="senha"
                             id="senha"
                             class="form-control"
-                            placeholder="********">
+                            placeholder="********" required>
 
                         <button
                             class="btn btn-outline-secondary"
