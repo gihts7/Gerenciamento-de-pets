@@ -57,27 +57,37 @@ if (isset($_POST["enviar"])) {
     $genero = $_POST["genero"];
 
 
-    $sql = "UPDATE pets
-            SET
+    /* VALIDAR DATA DE NASCIMENTO */
 
-                nome = '$nome',
-                nascimento = '$nascimento',
-                id_especie = '$id_especie',
-                prontuario = '$prontuario',
-                genero = '$genero'
+    if ($nascimento > date("Y-m-d")) {
 
-            WHERE id = '$id'
-            AND id_usuario = '$id_usuario'"
-
-
-    if (mysqli_query($conn, $sql)) {
-
-        header("Location: interface_principal.php");
-        exit;
+        $mensagem = "A data de nascimento não pode ser futura.";
 
     } else {
 
-        $mensagem = "Erro ao editar o pet.";
+        $sql = "UPDATE pets
+                SET
+
+                    nome = '$nome',
+                    nascimento = '$nascimento',
+                    id_especie = '$id_especie',
+                    prontuario = '$prontuario',
+                    genero = '$genero'
+
+                WHERE id = '$id'
+                AND id_usuario = '$id_usuario'";
+
+
+        if (mysqli_query($conn, $sql)) {
+
+            header("Location: interface_principal.php");
+            exit;
+
+        } else {
+
+            $mensagem = "Erro ao editar o pet.";
+
+        }
 
     }
 
@@ -209,6 +219,7 @@ if (isset($_POST["enviar"])) {
                         name="nascimento"
                         class="form-control"
                         value="<?php echo $pet["nascimento"]; ?>"
+                        max="<?php echo date('Y-m-d'); ?>"
                         required>
 
                 </div>

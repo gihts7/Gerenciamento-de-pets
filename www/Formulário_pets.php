@@ -13,6 +13,8 @@ $resultado = mysqli_query($conn, $sql);
 
 /* CADASTRAR PET */
 
+/* CADASTRAR PET */
+
 if (isset($_POST["enviar"])) {
 
     $nome = $_POST["nome"];
@@ -21,23 +23,36 @@ if (isset($_POST["enviar"])) {
     $prontuario = $_POST["prontuario"];
     $genero = $_POST["genero"];
 
+    // Pega o usuário que está logado
     $id_usuario = $_SESSION["id_usuario"];
 
-    $sql = "INSERT INTO pets 
-        (nome, nascimento, id_especie, prontuario, genero, id_usuario)
 
-        VALUES 
-        ('$nome', '$nascimento', '$id_especie', '$prontuario', '$genero', '$id_usuario')";
+    /* VALIDAR DATA DE NASCIMENTO */
 
+    if ($nascimento > date("Y-m-d")) {
 
-    if (mysqli_query($conn, $sql)) {
-
-        header("Location: interface_principal.php");
-        exit;
+        $mensagem = "A data de nascimento não pode ser futura.";
 
     } else {
 
-        $mensagem = "Erro ao cadastrar o pet.";
+
+        $sql = "INSERT INTO pets 
+                (nome, nascimento, id_especie, prontuario, genero, id_usuario)
+
+                VALUES 
+                ('$nome', '$nascimento', '$id_especie', '$prontuario', '$genero', '$id_usuario')";
+
+
+        if (mysqli_query($conn, $sql)) {
+
+            header("Location: interface_principal.php");
+            exit;
+
+        } else {
+
+            $mensagem = "Erro ao cadastrar o pet.";
+
+        }
 
     }
 
@@ -108,6 +123,7 @@ if (isset($_POST["enviar"])) {
                     type="date"
                     name="nascimento"
                     class="form-control"
+                    max="<?php echo date('Y-m-d'); ?>"
                     required>
 
             </div>
