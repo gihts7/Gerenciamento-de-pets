@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Tempo de geração: 05/09/2026 às 04:34
+-- Tempo de geração: 05/09/2026 às 04:51
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.3.31
 
@@ -67,7 +67,9 @@ CREATE TABLE `pets` (
 --
 
 INSERT INTO `pets` (`id`, `nome`, `nascimento`, `id_especie`, `prontuario`, `genero`, `id_usuario`) VALUES
-(2, 'Pandora', '2025-07-16', 1, 'Minha', 'F', NULL);
+(3, 'aaa', '1111-11-11', 2, '11', 'M', 5),
+(4, 'Pandora', '0001-11-11', 8, '2', 'M', 5),
+(5, 'Pandora', '0242-04-23', 1, '3', 'F', 4);
 
 -- --------------------------------------------------------
 
@@ -88,7 +90,8 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`) VALUES
 (3, 'Giovanna Teles Silveira', 'gigiteles502@gmail.com', '$2y$10$KFg4KZg9N5LiZpWqnrFrxuJMcLeDU7FR/.CKuw04rNHFU.m7NbkMW'),
-(4, 'Giovanna Teles Silveira', 'gihteles502@gmail.com', '$2y$10$LkA2nMUySWW967eEo5NTP.bkjHutfTr4p3liaoT//mObbT3qrwopq');
+(4, 'Giovanna Teles Silveira', 'gihteles502@gmail.com', '$2y$10$LkA2nMUySWW967eEo5NTP.bkjHutfTr4p3liaoT//mObbT3qrwopq'),
+(5, 'Pandora', 'gih@gmail.com', '$2y$10$QgA/Ct1NPZD4jZtsxWHpc.y9gqP7PAoGNSk5HzjIRG57nU6BVCa9m');
 
 --
 -- Índices para tabelas despejadas
@@ -129,13 +132,13 @@ ALTER TABLE `especies`
 -- AUTO_INCREMENT de tabela `pets`
 --
 ALTER TABLE `pets`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restrições para tabelas despejadas

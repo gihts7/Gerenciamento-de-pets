@@ -3,6 +3,7 @@
 require_once("includes/verificaLogin.php");
 require_once("includes/conecta.php");
 
+$id_usuario = $_SESSION["id_usuario"];
 
 /* VERIFICAR SE RECEBEU O ID */
 
@@ -27,7 +28,8 @@ $resultadoEspecies = mysqli_query($conn, $sqlEspecies);
 /* BUSCAR O PET */
 
 $sqlPet = "SELECT * FROM pets
-           WHERE id = '$id'";
+           WHERE id = '$id'
+           AND id_usuario = '$id_usuario'";
 
 $resultadoPet = mysqli_query($conn, $sqlPet);
 
@@ -64,7 +66,8 @@ if (isset($_POST["enviar"])) {
                 prontuario = '$prontuario',
                 genero = '$genero'
 
-            WHERE id = '$id'";
+            WHERE id = '$id'
+            AND id_usuario = '$id_usuario'"
 
 
     if (mysqli_query($conn, $sql)) {
