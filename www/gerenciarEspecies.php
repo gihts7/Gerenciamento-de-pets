@@ -114,87 +114,72 @@ $resultado = mysqli_query($conn, $sql);
 
         </h3>
 
-
-        <!-- TABELA -->
-
         <table class="table table-hover align-middle">
 
             <thead>
 
                 <tr>
 
-                    <th>ID</th>
+                    <th class="text-center">ID</th>
 
-                    <th>Espécie</th>
+                    <th class="text-center">Espécie</th>
 
-                    <th>Ações</th>
+                    <th class="text-center">Ações</th>
 
                 </tr>
 
             </thead>
 
-
             <tbody>
 
+                <?php
 
-            <?php
+                while ($especie = mysqli_fetch_assoc($resultado)) {
 
-            while ($especie = mysqli_fetch_assoc($resultado)) {
+                ?>
 
-            ?>
+                    <tr>
 
-                <tr>
+                        <td class="text-center">
 
-                    <td>
+                            <?php echo $especie["id"]; ?>
 
-                        <?php echo $especie["id"]; ?>
+                        </td>
 
-                    </td>
+                        <td class="text-center">
 
+                            <?php echo $especie["especie"]; ?>
 
-                    <td>
+                        </td>
 
-                        <?php echo $especie["especie"]; ?>
+                        <td class="text-center">
 
-                    </td>
+                            <a 
+                                href="editarEspecies.php?id=<?php echo $especie["id"]; ?>"
+                                class="btn-editar">
 
+                                Editar
 
-                    <td>
+                            </a>
 
+                            <a 
+                                href="excluirEspecies.php?id=<?php echo $especie["id"]; ?>"
+                                class="btn-excluir"
+                                onclick="return confirm('Tem certeza que deseja excluir esta espécie?')">
 
-                        <!-- EDITAR -->
+                                Excluir
 
-                        <a 
-                            href="editarEspecies.php?id=<?php echo $especie["id"]; ?>"
-                            class="btn-editar">
+                            </a>
 
-                            Editar
+                        </td>
 
-                        </a>
+                    </tr>
 
+                <?php
 
-                        <!-- EXCLUIR -->
+                }
 
-                        <a 
-                            href="excluirEspecies.php?id=<?php echo $especie["id"]; ?>"
-                            class="btn-excluir"
-                            onclick="return confirm('Tem certeza que deseja excluir esta espécie?')">
-
-                            Excluir
-
-                        </a>
-
-
-                    </td>
-
-                </tr>
-
-            <?php
-
-            }
-
-            ?>
-
+                ?>
 
             </tbody>
 

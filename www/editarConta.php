@@ -194,7 +194,7 @@ $usuario = mysqli_fetch_assoc($resultado);
                     type="submit"
                     name="enviar"
                     value="Salvar Alterações"
-                    class="btn btn-loginCadastro w-100">
+                    class="btn btn-excluirCadastro w-100">
 
                 <div class="text-center mt-3">
 

@@ -34,12 +34,6 @@ $resultado = mysqli_query($conn, $sql);
 
 <body>
 
-<?php
-
-//if (!isset($_POST["enviar"]))
-    //header("location: Login.php");
-?>
-
 <div class="container mt-5">
 
     <div class="pet-card">
