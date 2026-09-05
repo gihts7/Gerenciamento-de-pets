@@ -21,7 +21,7 @@ services:
       - "3305:3306"
     volumes:
       - db_data:/var/lib/mysql
-      - ./www/bd/site_progWeb.sql:/docker-entrypoint-initdb.d/site_progWeb.sql
+      - ./www/bd:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p1234"]
       interval: 5s
