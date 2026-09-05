@@ -4,10 +4,15 @@ require_once("includes/verificaLogin.php");
 require_once("includes/conecta.php");
 
 
+$id_usuario = $_SESSION["id_usuario"];
+
+
 $sql = "SELECT pets.*, especies.especie
         FROM pets
         INNER JOIN especies
-        ON pets.id_especie = especies.id";
+        ON pets.id_especie = especies.id
+        WHERE pets.id_usuario = '$id_usuario'";
+
 
 $resultado = mysqli_query($conn, $sql);
 

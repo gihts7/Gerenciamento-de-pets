@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Tempo de geração: 05/09/2026 às 01:24
+-- Tempo de geração: 05/09/2026 às 04:34
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.3.31
 
@@ -58,15 +58,16 @@ CREATE TABLE `pets` (
   `nascimento` date NOT NULL,
   `id_especie` int NOT NULL,
   `prontuario` text,
-  `genero` enum('M','F') NOT NULL
+  `genero` enum('M','F') NOT NULL,
+  `id_usuario` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `pets`
 --
 
-INSERT INTO `pets` (`id`, `nome`, `nascimento`, `id_especie`, `prontuario`, `genero`) VALUES
-(2, 'Pandora', '2025-07-16', 1, 'Minha', 'F');
+INSERT INTO `pets` (`id`, `nome`, `nascimento`, `id_especie`, `prontuario`, `genero`, `id_usuario`) VALUES
+(2, 'Pandora', '2025-07-16', 1, 'Minha', 'F', NULL);
 
 -- --------------------------------------------------------
 
@@ -86,7 +87,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`) VALUES
-(3, 'Giovanna Teles Silveira', 'gigiteles502@gmail.com', '$2y$10$KFg4KZg9N5LiZpWqnrFrxuJMcLeDU7FR/.CKuw04rNHFU.m7NbkMW');
+(3, 'Giovanna Teles Silveira', 'gigiteles502@gmail.com', '$2y$10$KFg4KZg9N5LiZpWqnrFrxuJMcLeDU7FR/.CKuw04rNHFU.m7NbkMW'),
+(4, 'Giovanna Teles Silveira', 'gihteles502@gmail.com', '$2y$10$LkA2nMUySWW967eEo5NTP.bkjHutfTr4p3liaoT//mObbT3qrwopq');
 
 --
 -- Índices para tabelas despejadas
@@ -103,7 +105,8 @@ ALTER TABLE `especies`
 --
 ALTER TABLE `pets`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_pet_especie` (`id_especie`);
+  ADD KEY `fk_pet_especie` (`id_especie`),
+  ADD KEY `fk_pet_usuario` (`id_usuario`);
 
 --
 -- Índices de tabela `usuarios`
@@ -132,7 +135,7 @@ ALTER TABLE `pets`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restrições para tabelas despejadas
@@ -142,7 +145,8 @@ ALTER TABLE `usuarios`
 -- Restrições para tabelas `pets`
 --
 ALTER TABLE `pets`
-  ADD CONSTRAINT `fk_pet_especie` FOREIGN KEY (`id_especie`) REFERENCES `especies` (`id`);
+  ADD CONSTRAINT `fk_pet_especie` FOREIGN KEY (`id_especie`) REFERENCES `especies` (`id`),
+  ADD CONSTRAINT `fk_pet_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -21,12 +21,13 @@ if (isset($_POST["enviar"])) {
     $prontuario = $_POST["prontuario"];
     $genero = $_POST["genero"];
 
+    $id_usuario = $_SESSION["id_usuario"];
 
     $sql = "INSERT INTO pets 
-            (nome, nascimento, id_especie, prontuario, genero)
+        (nome, nascimento, id_especie, prontuario, genero, id_usuario)
 
-            VALUES 
-            ('$nome', '$nascimento', '$id_especie', '$prontuario', '$genero')";
+        VALUES 
+        ('$nome', '$nascimento', '$id_especie', '$prontuario', '$genero', '$id_usuario')";
 
 
     if (mysqli_query($conn, $sql)) {
