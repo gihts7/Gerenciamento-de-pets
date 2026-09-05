@@ -48,7 +48,7 @@ if (!$pet) {
 
 /* SALVAR ALTERAÇÕES */
 
-if (isset($_POST["enviar"])) {
+    if (isset($_POST["enviar"])) {
 
     $nome = $_POST["nome"];
     $nascimento = $_POST["nascimento"];
@@ -59,9 +59,29 @@ if (isset($_POST["enviar"])) {
 
     /* VALIDAR DATA DE NASCIMENTO */
 
-    if ($nascimento > date("Y-m-d")) {
+    $data_minima = "1900-01-01";
+    $data_atual = date("Y-m-d");
+
+    $data = DateTime::createFromFormat("Y-m-d", $nascimento);
+
+
+    if (!$data || $data->format("Y-m-d") !== $nascimento) {
+
+        $mensagem = "Digite uma data de nascimento válida.";
+
+    }
+
+    elseif ($nascimento < $data_minima) {
+
+        $mensagem = "A data de nascimento não pode ser anterior a 1900.";
+
+    }
+
+    elseif ($nascimento > $data_atual) {
 
         $mensagem = "A data de nascimento não pode ser futura.";
+
+    }
 
     } else {
 
@@ -90,8 +110,6 @@ if (isset($_POST["enviar"])) {
         }
 
     }
-
-}
 
 ?>
 
@@ -219,6 +237,7 @@ if (isset($_POST["enviar"])) {
                         name="nascimento"
                         class="form-control"
                         value="<?php echo $pet["nascimento"]; ?>"
+                        min="1900-01-01"
                         max="<?php echo date('Y-m-d'); ?>"
                         required>
 

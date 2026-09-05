@@ -15,6 +15,8 @@ $resultado = mysqli_query($conn, $sql);
 
 /* CADASTRAR PET */
 
+/* CADASTRAR PET */
+
 if (isset($_POST["enviar"])) {
 
     $nome = $_POST["nome"];
@@ -23,18 +25,36 @@ if (isset($_POST["enviar"])) {
     $prontuario = $_POST["prontuario"];
     $genero = $_POST["genero"];
 
-    // Pega o usuário que está logado
     $id_usuario = $_SESSION["id_usuario"];
 
 
     /* VALIDAR DATA DE NASCIMENTO */
 
-    if ($nascimento > date("Y-m-d")) {
+    $data_minima = "1900-01-01";
+    $data_atual = date("Y-m-d");
+
+    $data = DateTime::createFromFormat("Y-m-d", $nascimento);
+
+
+    if (!$data || $data->format("Y-m-d") !== $nascimento) {
+
+        $mensagem = "Digite uma data de nascimento válida.";
+
+    }
+
+    elseif ($nascimento < $data_minima) {
+
+        $mensagem = "A data de nascimento não pode ser anterior a 1900.";
+
+    }
+
+    elseif ($nascimento > $data_atual) {
 
         $mensagem = "A data de nascimento não pode ser futura.";
 
-    } else {
+    }
 
+    else {
 
         $sql = "INSERT INTO pets 
                 (nome, nascimento, id_especie, prontuario, genero, id_usuario)
@@ -123,6 +143,7 @@ if (isset($_POST["enviar"])) {
                     type="date"
                     name="nascimento"
                     class="form-control"
+                    min="1900-01-01"
                     max="<?php echo date('Y-m-d'); ?>"
                     required>
 

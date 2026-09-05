@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Tempo de geração: 05/09/2026 às 04:51
+-- Tempo de geração: 05/09/2026 às 05:14
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.3.31
 
@@ -59,17 +59,8 @@ CREATE TABLE `pets` (
   `id_especie` int NOT NULL,
   `prontuario` text,
   `genero` enum('M','F') NOT NULL,
-  `id_usuario` int DEFAULT NULL
+  `id_usuario` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Despejando dados para a tabela `pets`
---
-
-INSERT INTO `pets` (`id`, `nome`, `nascimento`, `id_especie`, `prontuario`, `genero`, `id_usuario`) VALUES
-(3, 'aaa', '1111-11-11', 2, '11', 'M', 5),
-(4, 'Pandora', '0001-11-11', 8, '2', 'M', 5),
-(5, 'Pandora', '0242-04-23', 1, '3', 'F', 4);
 
 -- --------------------------------------------------------
 
@@ -132,7 +123,7 @@ ALTER TABLE `especies`
 -- AUTO_INCREMENT de tabela `pets`
 --
 ALTER TABLE `pets`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
@@ -149,7 +140,7 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `pets`
   ADD CONSTRAINT `fk_pet_especie` FOREIGN KEY (`id_especie`) REFERENCES `especies` (`id`),
-  ADD CONSTRAINT `fk_pet_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
+  ADD CONSTRAINT `fk_pet_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
