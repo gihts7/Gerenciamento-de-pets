@@ -3,7 +3,9 @@
 require_once("includes/verificaLogin.php");
 require_once("includes/conecta.php");
 
+
 $id_usuario = $_SESSION["id_usuario"];
+
 
 /* VERIFICAR SE RECEBEU O ID */
 
@@ -48,7 +50,7 @@ if (!$pet) {
 
 /* SALVAR ALTERAÇÕES */
 
-    if (isset($_POST["enviar"])) {
+if (isset($_POST["enviar"])) {
 
     $nome = $_POST["nome"];
     $nascimento = $_POST["nascimento"];
@@ -60,16 +62,28 @@ if (!$pet) {
     /* VALIDAR DATA DE NASCIMENTO */
 
     $data_minima = "1900-01-01";
+
     $data_atual = date("Y-m-d");
 
-    $data = DateTime::createFromFormat("Y-m-d", $nascimento);
+    $data = DateTime::createFromFormat(
+        "Y-m-d",
+        $nascimento
+    );
 
 
-    if (!$data || $data->format("Y-m-d") !== $nascimento) {
+    /* VERIFICAR SE A DATA É VÁLIDA */
+
+    if (
+        !$data ||
+        $data->format("Y-m-d") !== $nascimento
+    ) {
 
         $mensagem = "Digite uma data de nascimento válida.";
 
     }
+
+
+    /* VERIFICAR DATA MUITO ANTIGA */
 
     elseif ($nascimento < $data_minima) {
 
@@ -77,13 +91,19 @@ if (!$pet) {
 
     }
 
+
+    /* VERIFICAR DATA FUTURA */
+
     elseif ($nascimento > $data_atual) {
 
         $mensagem = "A data de nascimento não pode ser futura.";
 
     }
 
-    } else {
+
+    /* ATUALIZAR PET */
+
+    else {
 
         $sql = "UPDATE pets
                 SET
@@ -110,6 +130,8 @@ if (!$pet) {
         }
 
     }
+
+}
 
 ?>
 
