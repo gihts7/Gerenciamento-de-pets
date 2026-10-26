@@ -19,63 +19,114 @@ $resultado = mysqli_query($conn, $sql);
 
 if (isset($_POST["enviar"])) {
 
-    $nome = $_POST["nome"];
+    $nome = trim($_POST["nome"]);
     $nascimento = $_POST["nascimento"];
-    $id_especie = $_POST["especie"];
-    $prontuario = $_POST["prontuario"];
+    $id_especie = (int) $_POST["especie"];
+    $prontuario = trim($_POST["prontuario"]);
     $genero = $_POST["genero"];
+    $id_usuario = (int) $_SESSION["id_usuario"];
 
-    $id_usuario = $_SESSION["id_usuario"];
+    $foto = null;
+    $foto_tipo = null;
+    $foto_nome = null;
 
-
-    /* VALIDAR DATA DE NASCIMENTO */
+    /* VALIDAR DATA */
 
     $data_minima = "1900-01-01";
     $data_atual = date("Y-m-d");
 
     $data = DateTime::createFromFormat("Y-m-d", $nascimento);
 
-
-    if (!$data || $data->format("Y-m-d") !== $nascimento) {
-
+    if (
+        !$data ||
+        $data->format("Y-m-d") !== $nascimento
+    ) {
         $mensagem = "Digite uma data de nascimento válida.";
-
+    } elseif ($nascimento < $data_minima) {
+        $mensagem = "A data não pode ser anterior a 1900.";
+    } elseif ($nascimento > $data_atual) {
+        $mensagem = "A data não pode ser futura.";
     }
 
-    elseif ($nascimento < $data_minima) {
+    /* VALIDAR FOTO, SE FOI SELECIONADA */
 
-        $mensagem = "A data de nascimento não pode ser anterior a 1900.";
+    if (!isset($mensagem) &&
+        isset($_FILES["foto"]) &&
+        $_FILES["foto"]["error"] !== UPLOAD_ERR_NO_FILE) {
 
-    }
-
-    elseif ($nascimento > $data_atual) {
-
-        $mensagem = "A data de nascimento não pode ser futura.";
-
-    }
-
-    else {
-
-        $sql = "INSERT INTO pets 
-                (nome, nascimento, id_especie, prontuario, genero, id_usuario)
-
-                VALUES 
-                ('$nome', '$nascimento', '$id_especie', '$prontuario', '$genero', '$id_usuario')";
-
-
-        if (mysqli_query($conn, $sql)) {
-
-            header("Location: interface_principal.php");
-            exit;
-
+        if ($_FILES["foto"]["error"] !== UPLOAD_ERR_OK) {
+            $mensagem = "Ocorreu um erro ao enviar a foto.";
+        } elseif ($_FILES["foto"]["size"] > 2 * 1024 * 1024) {
+            $mensagem = "A foto deve ter no máximo 2 MB.";
         } else {
+            $arquivo_temporario = $_FILES["foto"]["tmp_name"];
 
+            /* Verifica o tipo real do arquivo */
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $tipo = $finfo->file($arquivo_temporario);
+
+            $tipos_permitidos = [
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+            ];
+
+            if (!in_array($tipo, $tipos_permitidos, true)) {
+                $mensagem = "Envie uma imagem JPG, PNG ou WEBP.";
+            } else {
+                $conteudo = file_get_contents($arquivo_temporario);
+
+                if ($conteudo === false) {
+                    $mensagem = "Não foi possível ler a imagem.";
+                } else {
+                    $foto = $conteudo;
+                    $foto_tipo = $tipo;
+
+                    /* Guarda somente o nome original */
+                    $foto_nome = basename($_FILES["foto"]["name"]);
+                }
+            }
+        }
+    }
+
+    /* CADASTRAR PET */
+
+    if (!isset($mensagem)) {
+
+        $sql = "INSERT INTO pets
+                (nome, nascimento, id_especie, prontuario,
+                 genero, id_usuario, foto, foto_tipo, foto_nome)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = mysqli_prepare($conn, $sql);
+
+        mysqli_stmt_bind_param(
+            $stmt,
+            "ssississs",
+            $nome,
+            $nascimento,
+            $id_especie,
+            $prontuario,
+            $genero,
+            $id_usuario,
+            $foto,
+            $foto_tipo,
+            $foto_nome
+        );
+
+        if (mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_close($stmt);
+
+            header("Location: Interface_principal.php");
+            exit;
+        } else {
             $mensagem = "Erro ao cadastrar o pet.";
-
         }
 
+        if (isset($stmt) && $stmt instanceof mysqli_stmt) {
+            mysqli_stmt_close($stmt);
+        }
     }
-
 }
 
 ?>
@@ -108,7 +159,7 @@ if (isset($_POST["enviar"])) {
             Cadastre um novo pet no sistema
         </p>
 
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
 
             <!-- NOME -->
 
@@ -192,6 +243,22 @@ if (isset($_POST["enviar"])) {
 
                 </select>
 
+            </div>
+
+            <!-- FOTO DO PET -->
+
+            <div class="mb-3">
+                <label class="form-label">Foto do Pet</label>
+
+                <input
+                    type="file"
+                    name="foto"
+                    class="form-control"
+                    accept="image/jpeg,image/png,image/webp">
+
+                <small class="text-muted">
+                    Formatos: JPG, PNG ou WEBP. Máximo: 2 MB.
+                </small>
             </div>
 
 

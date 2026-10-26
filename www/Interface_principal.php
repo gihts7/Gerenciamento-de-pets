@@ -7,10 +7,16 @@ require_once("includes/conecta.php");
 $id_usuario = $_SESSION["id_usuario"];
 
 
-$sql = "SELECT pets.*, especies.especie
+$sql = "SELECT
+            pets.id,
+            pets.nome,
+            pets.nascimento,
+            pets.genero,
+            pets.foto_tipo,
+            especies.especie
         FROM pets
         INNER JOIN especies
-        ON pets.id_especie = especies.id
+            ON pets.id_especie = especies.id
         WHERE pets.id_usuario = '$id_usuario'";
 
 
@@ -89,17 +95,14 @@ $resultado = mysqli_query($conn, $sql);
         <table class="table table-hover align-middle">
 
             <thead>
-
                 <tr>
-
+                    <th>Foto</th>
                     <th>Nome</th>
                     <th>Espécie</th>
                     <th>Nascimento</th>
                     <th>Gênero</th>
                     <th>Ações</th>
-
                 </tr>
-
             </thead>
 
             <tbody>
@@ -111,6 +114,23 @@ $resultado = mysqli_query($conn, $sql);
                 ?>
 
                     <tr>
+
+                        <td>
+                            <?php if (!empty($pet["foto_tipo"])) { ?>
+
+                                <img
+                                    src="imagemPet.php?id=<?php echo (int) $pet['id']; ?>"
+                                    alt="Foto de <?php echo htmlspecialchars($pet['nome']); ?>"
+                                    width="70"
+                                    height="70"
+                                    style="object-fit: cover; border-radius: 10px;">
+
+                            <?php } else { ?>
+
+                                <span class="text-muted">Sem foto</span>
+
+                            <?php } ?>
+                        </td>
 
                         <!-- NOME -->
 
