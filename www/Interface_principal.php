@@ -72,7 +72,7 @@ $resultado = mysqli_query($conn, $sql);
 
         <div class="d-flex justify-content-center gap-3 mb-5">
 
-            <a href="formulário_pets.php" class="btn btn-loginCadastro">
+            <a href="formulario_pets.php" class="btn btn-loginCadastro">
 
                 <i class="bi bi-plus-circle"></i>
                 Cadastrar Novo Pet
