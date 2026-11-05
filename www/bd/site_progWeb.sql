@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Tempo de geração: 05/09/2026 às 05:14
+-- Tempo de geração: 05/11/2026 às 01:39
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.3.31
 
@@ -59,8 +59,18 @@ CREATE TABLE `pets` (
   `id_especie` int NOT NULL,
   `prontuario` text,
   `genero` enum('M','F') NOT NULL,
-  `id_usuario` int NOT NULL
+  `id_usuario` int NOT NULL,
+  `foto` mediumblob,
+  `foto_tipo` varchar(50) DEFAULT NULL,
+  `foto_nome` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `pets`
+--
+
+INSERT INTO `pets` (`id`, `nome`, `nascimento`, `id_especie`, `prontuario`, `genero`, `id_usuario`, `foto`, `foto_tipo`, `foto_nome`) VALUES
+(10, 'Peppa', '2016-12-11', 1, '', 'F', 6, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -82,7 +92,7 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`) VALUES
 (3, 'Giovanna Teles Silveira', 'gigiteles502@gmail.com', '$2y$10$KFg4KZg9N5LiZpWqnrFrxuJMcLeDU7FR/.CKuw04rNHFU.m7NbkMW'),
 (4, 'Giovanna Teles Silveira', 'gihteles502@gmail.com', '$2y$10$LkA2nMUySWW967eEo5NTP.bkjHutfTr4p3liaoT//mObbT3qrwopq'),
-(5, 'Pandora', 'gih@gmail.com', '$2y$10$QgA/Ct1NPZD4jZtsxWHpc.y9gqP7PAoGNSk5HzjIRG57nU6BVCa9m');
+(6, 'Giovanna Teles Silveira', 'gih@gmail.com', '$2y$10$TAk7SswpzlWJirGwFdKOmOBfrq/iPZgHwF1T9f.zIlSsdy5w61WCy');
 
 --
 -- Índices para tabelas despejadas
@@ -123,13 +133,13 @@ ALTER TABLE `especies`
 -- AUTO_INCREMENT de tabela `pets`
 --
 ALTER TABLE `pets`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restrições para tabelas despejadas
