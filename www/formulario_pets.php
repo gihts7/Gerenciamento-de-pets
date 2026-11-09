@@ -10,11 +10,6 @@ $sql = "SELECT * FROM especies";
 
 $resultado = mysqli_query($conn, $sql);
 
-
-/* CADASTRAR PET */
-
-/* CADASTRAR PET */
-
 /* CADASTRAR PET */
 
 if (isset($_POST["enviar"])) {
